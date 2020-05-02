@@ -8,7 +8,7 @@ class HomeQualityGoodsPage extends StatelessWidget {
   const HomeQualityGoodsPage({Key key}) : super(key: key);
 
   Widget _imageWidget(BuildContext context, HomeContentProvide contentProvide, int tag) {
-    if (contentProvide.contentModel.data == null) {
+    if (contentProvide.contentModel == null) {
       return Text('...');
     }
 
@@ -22,7 +22,7 @@ class HomeQualityGoodsPage extends StatelessWidget {
 
   Widget _goodsWidget(
       BuildContext context, HomeContentProvide contentProvide, int tag) {
-    if (contentProvide.contentModel.data == null) {
+    if (contentProvide.contentModel == null) {
       return Text('...');
     }
     Widget rowWidget = Row(

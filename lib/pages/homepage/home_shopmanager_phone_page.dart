@@ -15,7 +15,7 @@ class HomeShopManagerPhonePage extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(ScreenUtil().setWidth(5), ScreenUtil().setWidth(5), ScreenUtil().setWidth(5), 0),
       child: Provide<HomeContentProvide>(
         builder: (BuildContext context, Widget child, HomeContentProvide contentProvide) {
-          if (contentProvide.contentModel.data != null) {
+          if (contentProvide.contentModel != null) {
             return Image.network(contentProvide.contentModel.data.shopInfo.leaderImage, width: ScreenUtil().setWidth(740));
           } else {
             return Text('...');

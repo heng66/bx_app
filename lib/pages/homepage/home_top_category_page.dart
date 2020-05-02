@@ -14,7 +14,7 @@ class HomeTopCategoryPage extends StatefulWidget {
 class _HomeTopCategoryPageState extends State<HomeTopCategoryPage> {
   Widget _getTopCategoryWidget(
       BuildContext context, int index, HomeContentProvide contentProvide) {
-    if (contentProvide.contentModel.data == null) {
+    if (contentProvide.contentModel == null) {
       return Text('...');
     }
 

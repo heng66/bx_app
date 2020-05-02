@@ -17,7 +17,7 @@ class HomeRecommendPage extends StatelessWidget {
   Widget _goodsShowDetailWidget(
       BuildContext context, int index, HomeContentProvide contentProvide) {
     if (contentProvide.contentModel == null) {
-      return Text(' ');
+      return Text('...');
     }
     Widget widget = Container(
       decoration: BoxDecoration(
@@ -71,7 +71,7 @@ class HomeRecommendPage extends StatelessWidget {
       child: Provide<HomeContentProvide>(
         builder: (BuildContext context, Widget child,
             HomeContentProvide contentProvide) {
-          if (contentProvide.contentModel.data == null) {
+          if (contentProvide.contentModel == null) {
             return Text('...');
           }
           return Container(

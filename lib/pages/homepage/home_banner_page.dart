@@ -21,7 +21,7 @@ class _HomeBannerPageState extends State<HomeBannerPage> {
       child: Provide<HomeContentProvide>(
         builder: (BuildContext context, Widget child,
             HomeContentProvide contentProvide) {
-          if (contentProvide.contentModel.data != null) {
+          if (contentProvide.contentModel != null) {
             return Swiper(
               itemBuilder: (BuildContext context, int index) {
                 return Image.network(

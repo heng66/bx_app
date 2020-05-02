@@ -31,14 +31,10 @@ class _CategoryListPageState extends State<CategoryListPage> {
         child: Provide<CategoryListProvide>(
           builder: (BuildContext context, Widget child,
               CategoryListProvide listProvide) {
-            if (listProvide.categoryListModel.data == null) {
+            if (listProvide.categoryListModel == null) {
               return Text('暂无数据');
-            }
-            // String page = Provide.value<CategoryNavProvide>(context).params['page'];
-            // int presentPage = int.parse(page);
-            // if (presentPage == 1) {
-            //   scrollController.jumpTo(0.0);
-            // }
+            } 
+
             return GridView.builder(
               controller: scrollController,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
