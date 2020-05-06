@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provide/provide.dart';
 import '../../model/home/home_hot_list_model.dart';
-import '../../provide/home_hot_list_provide.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeHotListPage extends StatefulWidget {
-  HomeHotListPage({Key key}) : super(key: key);
+  final List<HomeHotListData> hotList;
+  HomeHotListPage(this.hotList, {Key key}) : super(key: key);
 
   @override
   _HomeHotListPageState createState() => _HomeHotListPageState();
@@ -56,11 +55,9 @@ class _HomeHotListPageState extends State<HomeHotListPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<HomeHotListData> hotList =
-        Provide.value<HomeHotListProvide>(context).hotList;
-      if (hotList.length == 0) {
-        return Text('...');
-      }
+    if (widget.hotList.length == 0) {
+      return Text('暂无数据');
+    }
     return Container(
       color: Colors.white,
       child: GridView.builder(
@@ -71,16 +68,16 @@ class _HomeHotListPageState extends State<HomeHotListPage> {
             mainAxisSpacing: 0,
             crossAxisSpacing: 0,
             childAspectRatio: 1.2),
-        itemCount: hotList.length,
+        itemCount: widget.hotList.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: ScreenUtil().setWidth(20)),
-              _imageInforWidget(hotList, index),
-              _descpribtionWidget(hotList, index),
-              _priceWidget(hotList, index),
+              _imageInforWidget(widget.hotList, index),
+              _descpribtionWidget(widget.hotList, index),
+              _priceWidget(widget.hotList, index),
             ],
           );
         },

@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provide/provide.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../model/home/homecontent_model.dart';
-import '../../provide/homecontent_provide.dart';
 
 class HomeQualityGoodsPage extends StatelessWidget {
-  const HomeQualityGoodsPage({Key key}) : super(key: key);
+  final HomeContentData contentData;
+  const HomeQualityGoodsPage(this.contentData,{Key key}) : super(key: key);
 
-  Widget _imageWidget(BuildContext context, HomeContentProvide contentProvide, int tag) {
-    if (contentProvide.contentModel == null) {
-      return Text('...');
-    }
-
-    String imageName = (tag == 1?contentProvide.contentModel.data.floor1Pic.pICTUREADDRESS:tag == 2?contentProvide.contentModel.data.floor2Pic.pICTUREADDRESS:contentProvide.contentModel.data.floor3Pic.pICTUREADDRESS);
+  Widget _imageWidget(BuildContext context, HomeContentData contentData, int tag) {
+  
+    String imageName = (tag == 1?contentData.floor1Pic.pICTUREADDRESS:tag == 2?contentData.floor2Pic.pICTUREADDRESS:contentData.floor3Pic.pICTUREADDRESS);
     return Image.network(
       imageName,
       width: ScreenUtil().setWidth(700),
@@ -21,28 +17,26 @@ class HomeQualityGoodsPage extends StatelessWidget {
   }
 
   Widget _goodsWidget(
-      BuildContext context, HomeContentProvide contentProvide, int tag) {
-    if (contentProvide.contentModel == null) {
-      return Text('...');
-    }
+      BuildContext context, HomeContentData contentData, int tag) {
+  
     Widget rowWidget = Row(
       children: <Widget>[
         Column(
           children: <Widget>[
             _imageItemWidget(
-                context, tag==1?contentProvide.contentModel.data.floor1[0].image:tag==2?contentProvide.contentModel.data.floor2[0].image:contentProvide.contentModel.data.floor3[0].image),
+                context, tag==1?contentData.floor1[0].image:tag==2?contentData.floor2[0].image:contentData.floor3[0].image),
             _imageItemWidget(
-                context, tag==1?contentProvide.contentModel.data.floor1[3].image:tag==2?contentProvide.contentModel.data.floor2[3].image:contentProvide.contentModel.data.floor3[3].image),
+                context, tag==1?contentData.floor1[3].image:tag==2?contentData.floor2[3].image:contentData.floor3[3].image),
           ],
         ),
         Column(
           children: <Widget>[
             _imageItemWidget(
-                context, tag==1?contentProvide.contentModel.data.floor1[1].image:tag==2?contentProvide.contentModel.data.floor2[1].image:contentProvide.contentModel.data.floor3[1].image),
+                context, tag==1?contentData.floor1[1].image:tag==2?contentData.floor2[1].image:contentData.floor3[1].image),
             _imageItemWidget(
-                context, tag==1?contentProvide.contentModel.data.floor1[2].image:tag==2?contentProvide.contentModel.data.floor2[2].image:contentProvide.contentModel.data.floor3[2].image),
+                context, tag==1?contentData.floor1[2].image:tag==2?contentData.floor2[2].image:contentData.floor3[2].image),
             _imageItemWidget(
-                context, tag==1?contentProvide.contentModel.data.floor1[4].image:tag==2?contentProvide.contentModel.data.floor2[4].image:contentProvide.contentModel.data.floor3[4].image),
+                context, tag==1?contentData.floor1[4].image:tag==2?contentData.floor2[4].image:contentData.floor3[4].image),
           ],
         ),
       ],
@@ -57,21 +51,16 @@ class HomeQualityGoodsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Provide<HomeContentProvide>(
-        builder: (BuildContext context, Widget child,
-            HomeContentProvide contentProvide) {
-              return Column(
+      child: Column(
             children: <Widget>[
-              _imageWidget(context, contentProvide, 1),
-              _goodsWidget(context, contentProvide, 1),
-              _imageWidget(context, contentProvide, 2),
-              _goodsWidget(context, contentProvide, 2),
-              _imageWidget(context, contentProvide, 3),
-              _goodsWidget(context, contentProvide, 3),
+              _imageWidget(context, contentData, 1),
+              _goodsWidget(context, contentData, 1),
+              _imageWidget(context, contentData, 2),
+              _goodsWidget(context, contentData, 2),
+              _imageWidget(context, contentData, 3),
+              _goodsWidget(context, contentData, 3),
             ],
-          );
-        },
-      ),
+          ),
     );
   }
 }

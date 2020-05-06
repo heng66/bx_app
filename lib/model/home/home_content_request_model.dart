@@ -1,17 +1,21 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
-import '../../service/service_method.dart';
-import 'package:provide/provide.dart';
-import '../../provide/homecontent_provide.dart';
-import '../../model/home/homecontent_model.dart';
+import 'package:bx_app/common/network_utils.dart';
+import 'package:bx_app/common/url_utils.dart';
+import 'package:bx_app/model/home/homecontent_model.dart';
+import 'package:dio/dio.dart';
 
 class HomeContentRequestModel {
-  homePageContentRequest(BuildContext context) async {
-    await getHomePageContent().then((value) {
-      var data = json.decode(value.toString());
-      HomeContentModel model = new HomeContentModel.fromJson(data);
-      Provide.value<HomeContentProvide>(context).setHomeContentModel(model);
-    });
+  Future<HomeContentModel> homePageContentRequest({Map<String, dynamic> params}) async {
+    Response response = await NetWorkUtils(baseUrl: UrlUtils.Base_Url)
+        .request(UrlUtils.Home_Url, params: params, method: Method.post);
+
+    if (response == null || response.statusCode != 200) {
+      return HomeContentModel();
+    }
+
+    var data = json.decode(response.data);
+    HomeContentModel model = HomeContentModel.fromJson(data);
+    return model;
   }
 }

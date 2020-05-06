@@ -1,23 +1,24 @@
-import 'package:flutter/material.dart';
-import '../../provide/home_hot_list_provide.dart';
-import '../../pages/homepage/home_hot_list_page.dart';
-import '../../model/home/home_hot_list_model.dart';
-import 'package:provide/provide.dart';
 import 'dart:async';
 import 'dart:convert';
-import '../../service/service_method.dart';
+import 'package:dio/dio.dart';
+import 'package:bx_app/common/network_utils.dart';
+import 'package:bx_app/common/url_utils.dart';
+import 'package:bx_app/model/home/home_hot_list_model.dart';
 
 class HomeHotListRequestModel {
 
-  int page = 1;
+  Future<HomeHotListModel> homeHotGoodsRequest({int page:1}) async {
+    Map<String, dynamic> params = {'page': page};
+    Response response = await NetWorkUtils(baseUrl: UrlUtils.Base_Url)
+        .request(UrlUtils.Home_Hot_Url, params: params, method: Method.post);
 
-  getHotGoodsInfor(BuildContext context) async {
-    var paramsData = {'page': page};
-    await request('homePageBelowConten', paramsData: paramsData).then((val) {
-      var data = json.decode(val.toString());
-      HomeHotListModel model = HomeHotListModel.fromJson(data);
-      Provide.value<HomeHotListProvide>(context).addHotList(model.data);
-      page++;
-    });
+    if (response == null || response.statusCode != 200) {
+      return HomeHotListModel();
+    }
+
+    var data = json.decode(response.data);
+    HomeHotListModel model = HomeHotListModel.fromJson(data);
+    return model;
   }
+
 }

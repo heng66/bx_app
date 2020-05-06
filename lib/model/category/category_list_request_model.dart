@@ -1,18 +1,21 @@
-import 'package:bx_app/service/service_method.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:async';
-import 'package:provide/provide.dart';
-import '../../model/category/category_list_model.dart';
-import '../../provide/categoryprovide/category_list_provide.dart';
+import 'package:dio/dio.dart';
+import 'package:bx_app/model/category/category_list_model.dart';
+import 'package:bx_app/common/network_utils.dart';
+import 'package:bx_app/common/url_utils.dart';
 
 class CategoryListRequestModel {
-  categoryListRequest(BuildContext context, {Map<String,String> params}) async {
-    await request('getMallGoods',paramsData: params).then((value) {
-      var jsonData = json.decode(value);
-      // print('json -- > $jsonData');
-      CategoryListModel model = CategoryListModel.fromJson(jsonData);
-      Provide.value<CategoryListProvide>(context).saveCategoryListModel(model);
-    });
+  Future<CategoryListModel> categoryListRequest(
+      {Map<String, String> params}) async {
+    Response response = await NetWorkUtils(baseUrl: UrlUtils.Base_Url)
+        .request(UrlUtils.Category_List_Url, params: params);
+
+    if (response == null || response.statusCode != 200) {
+      return CategoryListModel();
+    }
+    var data = json.decode(response.data);
+    CategoryListModel model = CategoryListModel.fromJson(data);
+    return model;
   }
 }

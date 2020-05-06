@@ -29,7 +29,11 @@ dependencies:
   url_launcher: ^5.4.5
   flutter_easyrefresh: ^2.1.1
   provide: ^1.0.2
+  #loading
+  flutter_spinkit: ^4.1.2+1
+  #弹窗
   fluttertoast: ^4.0.1
+  #route路由
   fluro: ^1.6.3
   flutter_html: ^0.11.1
   sqflite: ^1.1.0
